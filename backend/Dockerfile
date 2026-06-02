@@ -1,6 +1,7 @@
 FROM python:3.12-slim
 
-WORKDIR /app
+# Do not use WORKDIR /app — it conflicts with COPY of the source folder "app"
+WORKDIR /application
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
@@ -12,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app ./app
+COPY app/ ./app/
 
 EXPOSE 8000
 
